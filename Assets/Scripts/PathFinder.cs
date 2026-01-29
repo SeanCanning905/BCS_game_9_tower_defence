@@ -50,8 +50,7 @@ public class PathFinder : MonoBehaviour
         startNode = gridManager.Grid[startCoordinates];
         endNode = gridManager.Grid[endCoordinates];
 
-        BreadthFirstSearch();
-        BuildPath();
+        GetNewPath();
     }
 
     // Update is called once per frame
@@ -85,7 +84,7 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    void BreadthFirstSearch()
+    void BreadthFirstSearch(Vector2Int coordinates)
     {
         startNode.isWalkable = true;
         endNode.isWalkable = true;
@@ -95,8 +94,8 @@ public class PathFinder : MonoBehaviour
 
         bool isRunning = true;
 
-        frontier.Enqueue(startNode);
-        reached.Add(startNode.coordinates, startNode);
+        frontier.Enqueue(grid[coordinates]);
+        reached.Add(coordinates, grid[coordinates]);
 
         while(frontier.Count > 0 && isRunning)
         {
@@ -136,8 +135,13 @@ public class PathFinder : MonoBehaviour
 
     public List<Node> GetNewPath()
     {
+        return GetNewPath(startCoordinates);
+    }
+
+    public List<Node> GetNewPath(Vector2Int coordinates)
+    {
         gridManager.ResetNodes();
-        BreadthFirstSearch();
+        BreadthFirstSearch(coordinates);
         return BuildPath();
     }
 
@@ -149,6 +153,7 @@ public class PathFinder : MonoBehaviour
 
             grid[coordinates].isWalkable = false;
             List<Node> newPath = GetNewPath();
+            grid[coordinates].isWalkable = previousState;
 
             if(newPath.Count <= 1)
             {
@@ -161,6 +166,6 @@ public class PathFinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("FindPath", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
     }
 }

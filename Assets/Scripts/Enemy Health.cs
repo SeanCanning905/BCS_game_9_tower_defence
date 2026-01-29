@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHitPoints = 5;
-    int currentHitPoints;
+    [SerializeField] int currentHitPoints;
 
     [SerializeField] int difficultyRamp = 1;
     [SerializeField] int rewardRamp = 1;

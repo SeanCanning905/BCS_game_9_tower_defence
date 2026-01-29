@@ -39,13 +39,14 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (gridManager.GetNode(coordinates).isWalkable && pathFinder.WillBlockPath(coordinates))
+        if (gridManager.GetNode(coordinates).isWalkable && !pathFinder.WillBlockPath(coordinates))
         {
             //Debug.Log("Clicked On" + transform.name);
             bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
             if (isSuccessful)
             {
                 gridManager.BlockNode(coordinates);
+                pathFinder.NotifyReceivers();
             }
         }
     }

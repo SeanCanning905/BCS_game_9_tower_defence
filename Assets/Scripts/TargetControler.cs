@@ -7,6 +7,7 @@ public class TargetControler : MonoBehaviour
     [SerializeField] float range = 1f;
 
     Transform target;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
