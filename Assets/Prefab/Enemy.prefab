@@ -741,9 +741,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 448654174160106679}
-  - component: {fileID: 5093500528164561664}
   - component: {fileID: 2123766542207626084}
   - component: {fileID: 6561073387647686369}
+  - component: {fileID: 6564724899792849230}
+  - component: {fileID: -7480337517884979713}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -767,20 +768,6 @@ Transform:
   - {fileID: 4803110394568962882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5093500528164561664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8098154087919590073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 453f36fecab8ffd48aa41f98b3c72485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  path: []
-  speed: 5
 --- !u!114 &2123766542207626084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +780,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a0a099da347064cb1743c729e99758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHitPoints: 5
+  maxHitPoints: 1
+  difficultyRamp: 1
+  rewardRamp: 5
 --- !u!65 &6561073387647686369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -815,6 +804,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.4742398, y: 1.6139984, z: 2.5853372}
   m_Center: {x: -0.018276215, y: 5.574294, z: 0.0788393}
+--- !u!114 &6564724899792849230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098154087919590073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453f36fecab8ffd48aa41f98b3c72485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  path: []
+  speed: 5
+  amountStolenRamp: 10
+--- !u!114 &-7480337517884979713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098154087919590073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff943520ed483004f8d56d6486b910bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  goldReward: 10
+  goldPenalty: 10
 --- !u!1 &8187195230486677509
 GameObject:
   m_ObjectHideFlags: 0

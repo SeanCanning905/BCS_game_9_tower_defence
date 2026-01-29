@@ -1,0 +1,52 @@
+using UnityEngine;
+
+public class Tile : MonoBehaviour
+{
+    [SerializeField] bool isPlaceable;
+    [SerializeField] Tower towerPrefab;
+
+    GridManager gridManager;
+    Vector2Int coordinates = new Vector2Int();
+
+    PathFinder pathFinder;
+
+    void Awake()
+    {
+        pathFinder = FindFirstObjectByType<PathFinder>();
+        gridManager = FindFirstObjectByType<GridManager>();
+    }
+
+    void Start()
+    {
+        if (gridManager != null)
+        {
+            coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
+            
+            if (!isPlaceable)
+            {
+                gridManager.BlockNode(coordinates);
+            }
+        }
+    }
+
+    public bool IsPlaceable
+    {
+        get
+        {
+            return isPlaceable;
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (gridManager.GetNode(coordinates).isWalkable && pathFinder.WillBlockPath(coordinates))
+        {
+            //Debug.Log("Clicked On" + transform.name);
+            bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform.position);
+            if (isSuccessful)
+            {
+                gridManager.BlockNode(coordinates);
+            }
+        }
+    }
+}

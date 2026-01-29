@@ -2,32 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] List<Node> path = new List<Node>();
     [SerializeField][Range(0.1f, 10f)] float speed = 5f;
 
+    [SerializeField] int amountStolenRamp = 1;
+
+    Enemy enemy;
+    GridManager gridManager;
+    PathFinder pathFinder;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        FindPath();
+        RecalculatePath();
         ReturnToStart();
         StartCoroutine(FollowPath());
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-
+        enemy = GetComponent<Enemy>();
+        gridManager = FindFirstObjectByType<GridManager>();
+        pathFinder = FindFirstObjectByType<PathFinder>();
     }
 
     IEnumerator FollowPath()
     {
-        foreach (Waypoint waypoint in path)
+        for (int i = 0; i < path.Count; i++)
         {
             //Debug.Log(waypoint.name);
             Vector3 startPosition = transform.position;
-            Vector3 endPosition = waypoint.transform.position;
+            Vector3 endPosition = gridManager.GetPositionFromCoordinates(path[i].coordinates);
             float travelPercent = 0f;
 
             transform.LookAt(endPosition);
@@ -39,32 +47,26 @@ public class EnemyController : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+
+        FinishPath();
     }
 
-    void FindPath()
+    void RecalculatePath()
     {
         path.Clear();
 
-        GameObject parent = GameObject.FindGameObjectWithTag("Path");
-
-        foreach (Transform child in parent.transform)
-        {
-            Waypoint waypoint = child.GetComponent<Waypoint>();
-
-            if (waypoint != null)
-            {
-                path.Add(waypoint);
-            }
-        }
+        path = pathFinder.GetNewPath();
     }
 
     void ReturnToStart()
     {
-        transform.position = path[0].transform.position;
+        transform.position = gridManager.GetPositionFromCoordinates(pathFinder.StartCoordinates);
     }
 
     void FinishPath()
     {
-        Destroy(gameObject);
+        enemy.StealGold();
+        enemy.goldPenalty += amountStolenRamp;
+        gameObject.SetActive(false);
     }
 }
