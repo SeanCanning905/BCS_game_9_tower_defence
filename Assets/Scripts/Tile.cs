@@ -4,23 +4,26 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] bool isPlaceable;
     [SerializeField] Tower towerPrefab;
+    [SerializeField] Transform enemyPosition;
 
     GridManager gridManager;
     Vector3Int coordinates = new Vector3Int();
 
     PathFinder pathFinder;
 
+
     void Awake()
     {
         pathFinder = FindFirstObjectByType<PathFinder>();
         gridManager = FindFirstObjectByType<GridManager>();
+        enemyPosition = GetComponentInChildren<Transform>();
     }
 
     void Start()
     {
         if (gridManager != null)
         {
-            coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
+            coordinates = gridManager.GetCoordinatesFromPosition(enemyPosition.transform.position);
             
             if (!isPlaceable)
             {

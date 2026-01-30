@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TargetControler : MonoBehaviour
@@ -19,6 +20,7 @@ public class TargetControler : MonoBehaviour
     {
         FindClosestTarget();
         AimWeapon();
+        // ClampRotation();
     }
     
     void AimWeapon()
@@ -65,4 +67,13 @@ public class TargetControler : MonoBehaviour
         var emissionModule = projectileParticles.emission;
         emissionModule.enabled = isActive;
     }
+
+    //void ClampRotation()
+    //{
+    //    float clampedX = Mathf.Clamp(transform.rotation.x, 0f, 0f);
+    //    float clampedY = Mathf.Clamp(transform.rotation.y, -360f, 360f);
+    //    float clampedZ = Mathf.Clamp(transform.rotation.z, 0f, 0f);
+
+    //    transform.rotation = new Quaternion.Euler //(clampedX, clampedY, clampedZ);
+    //}
 }

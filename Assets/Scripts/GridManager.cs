@@ -27,9 +27,13 @@ public class GridManager : MonoBehaviour
         {
             for(int y = 0; y < gridSize.y; y++)
             {
-                Vector3Int coordinates = new Vector3Int(x, y);
-                grid.Add(coordinates, new Node(coordinates, true));
-                Debug.Log("Coordinates: " + grid[coordinates].coordinates + "isWalkable state: " + grid[coordinates].isWalkable);
+                for(int z = 0;  z < gridSize.z; z++)
+                {
+                    Vector3Int coordinates = new Vector3Int(x, y, z);
+                    grid.Add(coordinates, new Node(coordinates, true));
+                    //Debug.Log("Coordinates: " + grid[coordinates].coordinates + "isWalkable state: " + grid[coordinates].isWalkable);
+                }
+
             }
         }
     }

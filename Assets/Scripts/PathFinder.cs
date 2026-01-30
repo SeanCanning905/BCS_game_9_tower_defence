@@ -48,8 +48,8 @@ public class PathFinder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        startNode = gridManager.Grid[startCoordinates];
-        endNode = gridManager.Grid[endCoordinates];
+        //startNode = gridManager.Grid[startCoordinates];
+        //endNode = gridManager.Grid[endCoordinates];
 
         GetNewPath();
     }
