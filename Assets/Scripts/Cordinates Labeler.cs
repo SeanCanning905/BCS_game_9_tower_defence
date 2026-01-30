@@ -11,7 +11,7 @@ public class CordinatesLabeler : MonoBehaviour
     [SerializeField] Color pathColor = Color.orange;
 
     TextMeshPro label;
-    Vector2Int coordinates = new Vector2Int();
+    Vector3Int coordinates = new Vector3Int();
     Tile waypoint;
     GridManager gridManager;
 
@@ -48,8 +48,9 @@ public class CordinatesLabeler : MonoBehaviour
     {
         coordinates.x = Mathf.RoundToInt(transform.parent.position.x / UnityEditor.EditorSnapSettings.move.x);
         coordinates.y = Mathf.RoundToInt(transform.parent.position.z / UnityEditor.EditorSnapSettings.move.z);
+        coordinates.z = Mathf.RoundToInt(transform.parent.position.y / UnityEditor.EditorSnapSettings.move.y);
 
-        label.text = $"{coordinates.x}; {coordinates.y}";
+        label.text = $"{coordinates.x}; {coordinates.y}; {coordinates.z}";
     }
 
     void UpdateObjectName()

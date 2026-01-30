@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
     void RecalculatePath(bool resetPath)
     {
-        Vector2Int coordinates = new Vector2Int();
+        Vector3Int coordinates = new Vector3Int();
 
         if (resetPath)
         {
