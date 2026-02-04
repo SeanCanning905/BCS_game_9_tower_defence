@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a0a099da347064cb1743c729e99758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHitPoints: 5
+  maxHitPoints: 500
   currentHitPoints: 0
   difficultyRamp: 1
   rewardRamp: 5
